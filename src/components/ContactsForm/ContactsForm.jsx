@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 import {
   Form,
@@ -12,7 +14,6 @@ import {
   ErrorMessage,
   Field,
 } from './ContactsForm.styled';
-import { addContact } from 'redux/operations';
 
 const phoneRegex =
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
@@ -35,13 +36,15 @@ export const ContactsForm = () => {
 
   const handleSubmit = (values, actions) => {
     if (contacts.find(contact => contact.name === values.name)) {
-      return alert(`${values.name} is already in contacts.`);
+      return toast.error(`${values.name} is already in contacts.`);
     }
 
     dispatch(addContact(values));
     actions.resetForm();
 
-    toast.info('No results were found for your search!');
+    toast.success(
+      `Contact ${values.name} was successfully added to you phonebook`
+    );
   };
 
   return (
@@ -70,7 +73,7 @@ export const ContactsForm = () => {
         </Form>
       </Formik>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 };

@@ -8,6 +8,8 @@ export const Info = styled.p`
 `;
 
 export const DeleteBtn = styled.button`
+  display: flex;
+  gap: 5px;
   margin-left: auto;
   margin-right: 40px;
   padding: 5px 10px;

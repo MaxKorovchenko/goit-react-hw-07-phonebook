@@ -1,16 +1,27 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useRef } from 'react';
+
+import { deleteContact } from 'redux/operations';
 
 import { DeleteBtn, Info } from './ContactItem.styled';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
 
 export const ContactItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
+  const btn = useRef();
+
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+    btn.current.disabled = true;
+
+    toast.info(`Сontact ${name} has been deleted`);
+  };
 
   return (
     <Info>
       {name}: {phone}
-      <DeleteBtn type="button" onClick={() => dispatch(deleteContact(id))}>
+      <DeleteBtn type="button" ref={btn} onClick={handleDelete}>
         Delete
       </DeleteBtn>
     </Info>
