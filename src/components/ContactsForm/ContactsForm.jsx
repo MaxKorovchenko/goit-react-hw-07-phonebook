@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { selectContacts } from 'redux/selectors';
 
@@ -39,31 +40,37 @@ export const ContactsForm = () => {
 
     dispatch(addContact(values));
     actions.resetForm();
+
+    toast.info('No results were found for your search!');
   };
 
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        phone: '',
-      }}
-      validationSchema={ContactSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <FormField>
-          Name
-          <Field type="text" name="name" autoComplete="off" />
-          <ErrorMessage name="name" component="span" />
-        </FormField>
-        <FormField>
-          Number
-          <Field type="tel" name="phone" autoComplete="off" />
-          <ErrorMessage name="phone" component="span" />
-        </FormField>
+    <>
+      <Formik
+        initialValues={{
+          name: '',
+          phone: '',
+        }}
+        validationSchema={ContactSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <FormField>
+            Name
+            <Field type="text" name="name" autoComplete="off" />
+            <ErrorMessage name="name" component="span" />
+          </FormField>
+          <FormField>
+            Number
+            <Field type="tel" name="phone" autoComplete="off" />
+            <ErrorMessage name="phone" component="span" />
+          </FormField>
 
-        <FormButton type="submit">Add contact</FormButton>
-      </Form>
-    </Formik>
+          <FormButton type="submit">Add contact</FormButton>
+        </Form>
+      </Formik>
+
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 };

@@ -5,11 +5,11 @@ import { ContactsForm } from 'components/ContactsForm/ContactsForm';
 import { ContactsList } from 'components/ContactsList/ContactsList';
 import { Filter } from 'components/Filter/Filter';
 import { fetchContacts } from 'redux/operations';
+import { selectIsLoading } from 'redux/selectors';
+import { selectError } from 'redux/selectors';
 
 import { GlobalStyle } from 'components/GlobalStyle';
 import { Layout, MainTitle, Title } from './App.styled';
-import { selectIsLoading } from 'redux/selectors';
-import { selectError } from 'redux/selectors';
 
 export const App = () => {
   const isLoading = useSelector(selectIsLoading);

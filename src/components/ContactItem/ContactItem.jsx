@@ -8,14 +8,12 @@ export const ContactItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <Info>
-        {name}: {phone}
-        <DeleteBtn type="button" onClick={() => dispatch(deleteContact(id))}>
-          Delete
-        </DeleteBtn>
-      </Info>
-    </>
+    <Info>
+      {name}: {phone}
+      <DeleteBtn type="button" onClick={() => dispatch(deleteContact(id))}>
+        Delete
+      </DeleteBtn>
+    </Info>
   );
 };
 
